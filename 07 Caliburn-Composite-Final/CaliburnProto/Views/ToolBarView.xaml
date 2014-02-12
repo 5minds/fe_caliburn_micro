@@ -1,0 +1,66 @@
+﻿<UserControl x:Class="CaliburnProto.Views.ToolBarView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:cal="clr-namespace:Caliburn.Micro;assembly=Caliburn.Micro"
+             xmlns:l="clr-namespace:CaliburnProto.Converters" mc:Ignorable="d" 
+             d:DesignHeight="25" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <l:ImageConverter x:Key="imageConverter" />
+    </UserControl.Resources>
+    
+    <!--<ToolBar Name="MainToolBar" Width="Auto" Height="25" ItemsSource="{Binding Items}">-->
+
+
+    <ListView  ItemsSource="{Binding Items}" 
+                  HorizontalContentAlignment="Stretch" >
+        <ListView.ItemsPanel>
+            <ItemsPanelTemplate>
+                <StackPanel Orientation="Horizontal"></StackPanel>
+            </ItemsPanelTemplate>
+        </ListView.ItemsPanel>
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <Button cal:Message.Attach="[Event Click] = [Action Execute()]">
+                    <Grid Margin="4">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"  />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <!--<Image Grid.Row="0" HorizontalAlignment="Center"  Source="\Images\Article.png" />-->
+                        <Image Grid.Row="0" HorizontalAlignment="Center"  Source="{Binding IconName, Converter={StaticResource imageConverter}}" />
+                        <TextBlock Grid.Row="1" HorizontalAlignment="Center" Text="{Binding DisplayName}" FontWeight="Thin"  />
+                    </Grid>
+                </Button>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+    
+
+    <!--<ListView ItemsSource="{Binding Items}" 
+                  HorizontalContentAlignment="Stretch" >
+            <ListView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <StackPanel Orientation="Horizontal"></StackPanel>
+                </ItemsPanelTemplate>
+            </ListView.ItemsPanel>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                <Button Content="{Binding DisplayName}" cal:Message.Attach="[Event Click] = [Action Execute()]" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+
+        
+        <!--<ToolBar.ItemContainerStyle>
+            <Style TargetType="ToolBar">
+                <Setter Property="Header" Value="{Binding DisplayName}" />
+                <Setter Property="ItemsSource" Value="{Binding Items}" />
+                <Setter Property="IsEnabled" Value="{Binding CanExecute}" />
+                <Setter Property="cal:Message.Attach" Value="[Event Click] = [Action Execute()]" />
+            </Style>
+        </ToolBar.ItemContainerStyle>-->
+    
+</UserControl>
